@@ -27,8 +27,8 @@ def databaseConnect():
     except (Exception, psycopg2.DatabaseError) as error:
         print("Error:\n", error)
 
-if __name__ == "__main__":
-    databaseConnect()
+#if __name__ == "__main__":
+    #databaseConnect()
     #movieDB = databaseMovie()
     #movieDB.addMovie('Gladiator', [1980,'Ridley','Drama'])
     #movieDB.addMovie('Batman', [1999, 'john', 'Scif-fi'])
