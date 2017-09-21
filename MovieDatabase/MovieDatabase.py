@@ -1,5 +1,5 @@
 import psycopg2
-from Config import config
+from MovieDatabase.Config import config
 
 class databaseMovie:
     def __init__(self):
@@ -19,11 +19,17 @@ class databaseMovie:
         else:
             print("Movie not found!")
 
-def createDatabase():
-    conn = psycopg2.connect("dbname=movies user=movie password=database")
+def databaseConnect():
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        curs = conn.cursor()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print("Error:\n", error)
 
 if __name__ == "__main__":
-    movieDB = databaseMovie()
-    movieDB.addMovie('Gladiator', [1980,'Ridley','Drama'])
-    movieDB.addMovie('Batman', [1999, 'john', 'Scif-fi'])
-    print(movieDB.printDatabase())
+    databaseConnect()
+    #movieDB = databaseMovie()
+    #movieDB.addMovie('Gladiator', [1980,'Ridley','Drama'])
+    #movieDB.addMovie('Batman', [1999, 'john', 'Scif-fi'])
+    #print(movieDB.printDatabase())
