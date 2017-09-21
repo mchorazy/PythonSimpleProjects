@@ -1,3 +1,6 @@
+import psycopg2
+from Config import config
+
 class databaseMovie:
     def __init__(self):
         self.databaseMovie = {}
@@ -15,6 +18,9 @@ class databaseMovie:
             del self.databaseMovie[movie]
         else:
             print("Movie not found!")
+
+def createDatabase():
+    conn = psycopg2.connect("dbname=movies user=movie password=database")
 
 if __name__ == "__main__":
     movieDB = databaseMovie()
