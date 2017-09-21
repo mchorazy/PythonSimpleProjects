@@ -1,7 +1,9 @@
-"""Config for connection with PostgreSQL"""
 from configparser import ConfigParser
 
 def config(filename='MovieDatabase/config/dbConfig.ini', section='postgresql'):
+    """Import database config from .ini file
+    Section: postgresql
+    Parameters: host, database, user, password"""
     parser = ConfigParser()
     parser.read(filename)
 
