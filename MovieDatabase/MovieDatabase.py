@@ -25,7 +25,7 @@ def databaseConnect():
         conn = psycopg2.connect(**params)
         curs = conn.cursor()
     except (Exception, psycopg2.DatabaseError) as error:
-        print("Error:\n", error)
+        print('Error description:\n', error)
 
 #if __name__ == "__main__":
     #databaseConnect()
