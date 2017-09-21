@@ -1,6 +1,6 @@
 # Python Simple Projects
 
 ## 1. Password generator
-File: RandomGeneratorMain.py
-Description: Simple password generator with 8-16 length
+File: RandomGeneratorMain.py<br>
+Description: Simple password generator with 8-16 length<br>
 Libraries: string, random, tornado
