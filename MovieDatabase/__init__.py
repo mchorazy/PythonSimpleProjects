@@ -1,4 +1,6 @@
-from MovieDatabase.MovieDatabase import databaseConnect
+from MovieDatabase.MovieDatabase import *
 
 if __name__ == "__main__":
-    databaseConnect()
+    #databaseConnect()
+    movieDB = databaseMovie()
+    movieDB.addMovie('Gladiator')

@@ -1,14 +1,14 @@
-import psycopg2
-from MovieDatabase.Config import config
+from MovieDatabase.DatabaseOperation import databaseConnect, executeSql
+from MovieDatabase.sqlQuery import insertMovie
 
 class databaseMovie:
     def __init__(self):
-        self.databaseMovie = {}
+        databaseConnect()
 
-    def addMovie(self, movie, details=[]):
-        self._movie = movie
-        self._details = details
-        self.databaseMovie[self._movie] = self._details
+    def addMovie(self, moviename):
+        self.moviename = moviename
+        executeSql(insertMovie(), moviename)
+
 
     def printDatabase(self):
         return self.databaseMovie
@@ -19,17 +19,4 @@ class databaseMovie:
         else:
             print("Movie not found!")
 
-def databaseConnect():
-    try:
-        params = config()
-        conn = psycopg2.connect(**params)
-        curs = conn.cursor()
-    except (Exception, psycopg2.DatabaseError) as errorDescription:
-        print('Error description:\n', errorDescription)
-
 #if __name__ == "__main__":
-    #databaseConnect()
-    #movieDB = databaseMovie()
-    #movieDB.addMovie('Gladiator', [1980,'Ridley','Drama'])
-    #movieDB.addMovie('Batman', [1999, 'john', 'Scif-fi'])
-    #print(movieDB.printDatabase())
