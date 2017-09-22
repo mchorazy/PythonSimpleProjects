@@ -1,5 +1,5 @@
-from MovieDatabase.DatabaseOperation import databaseConnect, executeSql
-from MovieDatabase.sqlQuery import insertMovie
+from MovieDatabase.DatabaseOperation import databaseConnect, insertMovie
+from MovieDatabase.sqlQuery import insertMovieSQL
 
 class databaseMovie:
     def __init__(self):
@@ -7,7 +7,7 @@ class databaseMovie:
 
     def addMovie(self, moviename):
         self.moviename = moviename
-        executeSql(insertMovie(), moviename)
+        insertMovie(insertMovieSQL(), moviename)
 
 
     def printDatabase(self):

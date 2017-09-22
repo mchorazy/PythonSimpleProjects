@@ -34,7 +34,7 @@ def databaseConnect():
         if connection is not None:
             connection.close()
 
-def executeSql(sqlQuery, moviename):
+def insertMovie(sqlQuery, moviename):
     connection = None
     movie_id = None
 

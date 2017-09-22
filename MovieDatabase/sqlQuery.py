@@ -1,2 +1,2 @@
-def insertMovie():
+def insertMovieSQL():
     return "INSERT INTO movies(moviename) VALUES(%s)"
