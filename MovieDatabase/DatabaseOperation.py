@@ -22,8 +22,9 @@ def databaseConnect():
         connection = psycopg2.connect(**params)
         cursor = connection.cursor()
 
-        for query in createTables():
-            cursor.execute(query)
+        """for query in createTables():
+            cursor.execute(query)"""
+        [cursor.execute(query) for query in createTables()]
 
         cursor.close()
         connection.commit()
@@ -34,7 +35,8 @@ def databaseConnect():
         if connection is not None:
             connection.close()
 
-def insertMovie(sqlQuery, moviename):
+def insertMovie(sqlQuery, movie_name):
+    """Insert movie in database"""
     connection = None
     movie_id = None
 
@@ -43,7 +45,7 @@ def insertMovie(sqlQuery, moviename):
         connection = psycopg2.connect(**params)
         cursor = connection.cursor()
 
-        cursor.execute(sqlQuery, (moviename,))
+        cursor.execute(sqlQuery, (movie_name,))
         movie_id = cursor.fetchone()[0]
 
         connection.commit()
@@ -54,3 +56,84 @@ def insertMovie(sqlQuery, moviename):
         if connection is not None:
             connection.close()
     return movie_id
+
+def updateMovie(sqlQuery, movie_id, movie_name):
+    """Update movie record"""
+    connection = None
+    try:
+        params = config()
+        connection = psycopg2.connect(**params)
+        cursor = connection.cursor()
+
+        cursor.execute(sqlQuery, (movie_name, movie_id))
+        result = cursor.rowcount
+
+        connection.commit()
+        cursor.close()
+    except (Exception, psycopg2.DatabaseError) as errorDescription:
+        print('Error description:\n', errorDescription)
+    finally:
+        if connection is not None:
+            connection.close()
+    return result
+
+def printMovies(sqlQuery):
+    connection = None
+    try:
+        params = config()
+        connection = psycopg2.connect(**params)
+        cursor = connection.cursor()
+
+        cursor.execute(sqlQuery)
+        rows = cursor.fetchall()
+        """for movie in rows:
+            print(movie)"""
+        [print(movie) for movie in rows]
+
+        cursor.close()
+    except (Exception, psycopg2.DatabaseError) as errorDescription:
+        print('Error description:\n', errorDescription)
+    finally:
+        if connection is not None:
+            connection.close()
+
+def getMoviesList(sqlQuery):
+    connection = None
+    movieList = []
+    try:
+        params = config()
+        connection = psycopg2.connect(**params)
+        cursor = connection.cursor()
+
+        cursor.execute(sqlQuery)
+        rows = cursor.fetchall()
+        """for movie in rows:
+            movieList.append(movie)"""
+        [movieList.append(movie) for movie in rows]
+        cursor.close()
+    except (Exception, psycopg2.DatabaseError) as errorDescription:
+        print('Error description:\n', errorDescription)
+    finally:
+        if connection is not None:
+            connection.close()
+    return movieList
+
+def deleteMovie(sqlQuery, movie_name):
+    connection = None
+    deletedmovie = 0
+    try:
+        params = config()
+        connection = psycopg2.connect(**params)
+        cursor = connection.cursor()
+
+        cursor.execute(sqlQuery, (movie_name,))
+        deletedmovie = cursor.rowcount
+
+        connection.commit()
+        cursor.close()
+    except (Exception, psycopg2.DatabaseError) as errorDescription:
+        print('Error description:\n', errorDescription)
+    finally:
+        if connection is not None:
+            connection.close()
+    return deletedmovie

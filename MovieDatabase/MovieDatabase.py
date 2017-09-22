@@ -1,5 +1,5 @@
-from MovieDatabase.DatabaseOperation import databaseConnect, insertMovie
-from MovieDatabase.sqlQuery import insertMovieSQL
+from MovieDatabase.DatabaseOperation import *
+from MovieDatabase.sqlQuery import *
 
 class databaseMovie:
     def __init__(self):
@@ -9,14 +9,16 @@ class databaseMovie:
         self.moviename = moviename
         insertMovie(insertMovieSQL(), moviename)
 
+    def updateMovie(self, movieid, moviename):
+        self.movieid = movieid
+        self.moviename = moviename
+        updateMovie(updatedMovieSQL(),movieid,moviename)
 
-    def printDatabase(self):
-        return self.databaseMovie
+    def printMovieList(self):
+        printMovies(getMovieListSQL())
 
-    def deleteMovie(self, movie):
-        if movie in self.databaseMovie:
-            del self.databaseMovie[movie]
+    def deleteMovie(self, moviename):
+        if moviename in getMoviesList(getMoviesNameSQL()):
+            deleteMovie(deleteMovieSQL(), moviename)
         else:
             print("Movie not found!")
-
-#if __name__ == "__main__":
